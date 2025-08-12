@@ -1,0 +1,28 @@
+{% extends "todo_app/base.html" %}
+
+
+
+{% block content %}
+        <ul>
+            {% for todo in todos %}
+                <li style="justify-content: center;">
+                   <p style="font-size: larger;">{{ todo }}</p> 
+                    <form style="display:inline; " action="delete/{{ todo | urlencode }}" method="POST">
+                    <button>delete</button>
+                </form>
+                </li>
+
+
+            {% endfor %}
+
+            </ul>
+
+         <form style="text-align: center;" action="/save" method="post">
+            <input type="text" name="inputfromhtml">
+            <button>submit</button>
+         </form>   
+
+
+    
+
+{% endblock %}
