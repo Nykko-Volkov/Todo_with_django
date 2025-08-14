@@ -1,3 +1,5 @@
+# Redirect to custom login page for @login_required
+LOGIN_URL = '/signin/'
 """
 Django settings for todo project.
 

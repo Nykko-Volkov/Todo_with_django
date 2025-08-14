@@ -4,51 +4,56 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
-    <title>Todo List</title>
-</head>
-
-
-<body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            {% if not user %}
-            <a href="/signup">Sign Up</a>
-            <a href="/signin">Login</a>
-            {% else %}
-            <a href="/profile">{{ user }}</a>
-            <a href="/logout">Logout</a>
-            {% endif %}
-            </ul>
-        </nav>
-        <br>
-    </header>
-
-
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-
-
-
     <footer>
         <p>&copy; 2023 My Todo App</p>
-        <p>Created by Nathan</p>
-    </footer>
+        {% load static %}
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Todo List</title>
+            <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
+        </head>
+
+        <body>
+            <header>
+                <nav class="navbar">
+                    <a href="/" class="nav-home">My Todo App</a>
+                    <div class="nav-right">
+                        {% if user.is_authenticated %}
+                            <span class="nav-welcome">Welcome, {{ user.username }}!</span>
+                            <a href="/logout" class="nav-link">Logout</a>
+                        {% else %}
+                            <a href="/signup" class="nav-link">Sign Up</a>
+                            <a href="/signin" class="nav-link">Login</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </header>
+
+            {% if messages %}
+                <div style="max-width: 600px; margin: 1rem auto;">
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <div style="padding: 10px; border-radius: 5px; margin-bottom: 10px; background: #d4edda; color: #333;">{{ message }}</div>
+                        {% elif message.tags == 'error' %}
+                            <div style="padding: 10px; border-radius: 5px; margin-bottom: 10px; background: #f8d7da; color: #333;">{{ message }}</div>
+                        {% else %}
+                            <div style="padding: 10px; border-radius: 5px; margin-bottom: 10px; background: #cce5ff; color: #333;">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <main>
+                {% block content %}{% endblock %}
+            </main>
 
 
-
-
-
-
-
-</body>
-
-
-
-
-
-</html>
+            <footer class="footer">
+                <p>&copy; 2023 My Todo App &mdash; Created by Nathan</p>
+            </footer>
+            <!-- JavaScript removed as requested -->
+        </body>
+        </html>

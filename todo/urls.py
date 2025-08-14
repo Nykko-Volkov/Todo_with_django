@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from todo_app import views  # Import your views from the todo_app
+from todo_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.index, name="index"),  # Assuming you have an index view
-    path('signin/', views.login_function, name='signin'),  # URL for login
-    path('signup/', views.signup_function, name='signup'),  # URL for signup
-    path('logout/', views.logout_function, name='logout'),  # URL for logout
+    path('', views.index, name='index'),
+    path('save', views.save_todo, name='save_todo'),
+    path('delete/<int:todo_id>', views.delete_todo, name='delete_todo'),
+    path('signin/', views.login_function, name='signin'),
+    path('signup/', views.signup_function, name='signup'),
+    path('logout/', views.logout_function, name='logout'),
 ]
